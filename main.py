@@ -6,7 +6,7 @@ import os
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Panel de Control - Fase 2")
+        self.title("Panel de Control - Fase 3")
         self.geometry("600x400")
         self.config_manager = ConfigManager()
         
@@ -78,7 +78,7 @@ class App(tk.Tk):
 class SettingsWindow(tk.Toplevel):
     def __init__(self, parent, config_manager):
         super().__init__(parent)
-        self.title("Ajustes Básicos")
+        self.title("Ajustes Avanzados")
         self.geometry("450x400")
         self.parent = parent
         self.config_manager = config_manager
@@ -150,9 +150,12 @@ class SettingsWindow(tk.Toplevel):
             "color_letra": self.color_letra_var,
             "foto_perfil": self.foto_path
         }
-        self.config_manager.save_config(new_config)
-        self.parent.apply_config()
-        self.destroy()
+        
+        if self.config_manager.save_config(new_config):
+            self.parent.apply_config()
+            self.destroy()
+        else:
+            messagebox.showerror("Error de Permisos", "No se pudo completar el guardado seguro. Verifique permisos del archivo.")
 
 if __name__ == "__main__":
     app = App()

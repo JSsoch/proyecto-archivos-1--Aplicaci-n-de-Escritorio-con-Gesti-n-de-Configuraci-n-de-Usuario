@@ -1,7 +1,10 @@
 import json
 import os
+import shutil
 
 CONFIG_FILE = "config.json"
+BACKUP_FILE = "config.bak"
+TEMP_FILE = "config.tmp"
 
 DEFAULT_CONFIG = {
     "nombre_usuario": "Usuario",
@@ -19,18 +22,33 @@ class ConfigManager:
         self.load_config()
 
     def load_config(self):
-        if os.path.exists(CONFIG_FILE):
-            try:
-                with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
-                    self.config.update(json.load(f))
-            except Exception:
-                pass
+        if not os.path.exists(CONFIG_FILE):
+            return
+
+        try:
+            with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
+                loaded_config = json.load(f)
+                self.config.update(loaded_config)
+        except (json.JSONDecodeError, PermissionError):
+            pass
 
     def save_config(self, new_config):
         self.config.update(new_config)
+
+        if os.path.exists(CONFIG_FILE):
+            try:
+                shutil.copy2(CONFIG_FILE, BACKUP_FILE)
+            except PermissionError:
+                return False
+
         try:
-            with open(CONFIG_FILE, 'w', encoding='utf-8') as f:
-                json.dump(self.config, f, indent=4)
+            with open(TEMP_FILE, 'w', encoding='utf-8') as f:
+                json.dump(self.config, f, indent=4, ensure_ascii=False)
+        except PermissionError:
+            return False
+
+        try:
+            os.replace(TEMP_FILE, CONFIG_FILE)
             return True
-        except Exception:
+        except PermissionError:
             return False
