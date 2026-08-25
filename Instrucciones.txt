@@ -1,0 +1,27 @@
+¡Hola! He creado la aplicación completa según los requerimientos del Laboratorio No. 1.
+
+Archivos generados en C:\Users\Soch\Documents\GitHub\Lab1_Archivos:
+
+1. config_manager.py: Contiene la lógica robusta de carga, guardado, backup (.bak) y manejo de errores solicitada.
+2. main.py: Es la interfaz gráfica (Tkinter) que contiene los menús simulados y la ventana de Settings funcional requerida.
+3. test_errors.py: Un script de pruebas que demuestra cómo el programa reacciona a archivos ausentes, corruptos o sin permisos, sin caerse.
+4. logs.txt: El resultado de la prueba de errores, que sirve como evidencia.
+5. Reporte.md: Contiene todas las respuestas a las preguntas técnicas exigidas (justificación del formato, fragmentos de código, capturas y ejemplos).
+
+PASOS FALTANTES PARA EL ESTUDIANTE:
+-----------------------------------
+1. Git / Control de versiones:
+   Parece que no tienes "git" disponible globalmente en la consola. Para cumplir el requisito del historial de commits incrementales:
+   - Abre Git Bash o tu cliente de Git preferido en esta carpeta (`C:\Users\Soch\Documents\GitHub\Lab1_Archivos`).
+   - Inicializa el repositorio (`git init`).
+   - Haz commits incrementales. Por ejemplo:
+     `git add config_manager.py` -> `git commit -m "Implementacion manejo de archivo config"`
+     `git add main.py` -> `git commit -m "Implementacion interfaz grafica y menu"`
+     `git add config.json config.bak Reporte.md` -> `git commit -m "Agregado soporte de json y reporte final"`
+
+2. Documento PDF:
+   - Tienes el texto completo en `Reporte.md`. Puedes abrir este archivo con un editor (como Visual Studio Code o Typora), tomar 1 o 2 capturas de pantalla de la aplicación funcionando, pegarlas al final, y luego exportar el documento a PDF, o bien copiar el texto de Reporte.md a un archivo de Word (.docx) y guardarlo como PDF.
+
+3. Ejecutar la aplicación:
+   Puedes probar el programa escribiendo en la terminal:
+   `python main.py`

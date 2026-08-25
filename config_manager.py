@@ -24,31 +24,30 @@ class ConfigManager:
     def load_config(self):
         if not os.path.exists(CONFIG_FILE):
             return
-
         try:
             with open(CONFIG_FILE, 'r', encoding='utf-8') as f:
-                loaded_config = json.load(f)
-                self.config.update(loaded_config)
+                self.config.update(json.load(f))
         except (json.JSONDecodeError, PermissionError):
             pass
 
     def save_config(self, new_config):
         self.config.update(new_config)
-
         if os.path.exists(CONFIG_FILE):
             try:
                 shutil.copy2(CONFIG_FILE, BACKUP_FILE)
             except PermissionError:
                 return False
-
         try:
             with open(TEMP_FILE, 'w', encoding='utf-8') as f:
                 json.dump(self.config, f, indent=4, ensure_ascii=False)
         except PermissionError:
             return False
-
         try:
             os.replace(TEMP_FILE, CONFIG_FILE)
             return True
         except PermissionError:
             return False
+
+    def restore_defaults(self):
+        self.config = DEFAULT_CONFIG.copy()
+        return self.save_config(self.config)
