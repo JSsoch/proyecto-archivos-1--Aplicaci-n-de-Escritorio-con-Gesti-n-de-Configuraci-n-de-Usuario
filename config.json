@@ -1,9 +1,9 @@
 {
-    "nombre_usuario": "jose ",
+    "nombre_usuario": "José Núñez de la Peña",
     "tema_interfaz": "oscuro",
     "idioma": "es/es-ES",
-    "tama\u00f1o_fuente": 12,
-    "color_barra_menu": "#400040",
-    "color_letra": "#0000ff",
-    "foto_perfil": ""
+    "tamaño_fuente": 16,
+    "color_barra_menu": "#2b5b84",
+    "color_letra": "#ffffff",
+    "foto_perfil": "C:/Usuarios/Imágenes/foto_diseño.png"
 }

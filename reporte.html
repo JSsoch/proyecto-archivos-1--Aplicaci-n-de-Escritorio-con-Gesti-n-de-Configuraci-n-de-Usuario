@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reporte Laboratorio No. 1 - Manejo e Implementación de Archivos</title>
+    <style>
+        @page {
+            size: letter;
+            margin: 20mm 18mm 20mm 18mm;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #222222;
+            line-height: 1.5;
+            font-size: 11pt;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            border-bottom: 3px double #003366;
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .header h1 {
+            color: #003366;
+            font-size: 18pt;
+            margin: 0 0 4px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .header h2 {
+            color: #444444;
+            font-size: 13pt;
+            margin: 0 0 4px 0;
+            font-weight: 600;
+        }
+        .header p {
+            color: #666666;
+            font-size: 10pt;
+            margin: 2px 0;
+        }
+        .meta-box {
+            background-color: #f4f7fb;
+            border-left: 4px solid #003366;
+            padding: 10px 14px;
+            margin-bottom: 25px;
+            font-size: 10pt;
+        }
+        .meta-box table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .meta-box td {
+            padding: 3px 6px;
+            vertical-align: top;
+        }
+        .meta-label {
+            font-weight: bold;
+            color: #003366;
+            width: 25%;
+        }
+        h2.section-title {
+            color: #003366;
+            font-size: 13pt;
+            border-bottom: 1.5px solid #d0d7de;
+            padding-bottom: 5px;
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+        h3.subsection-title {
+            color: #1a4971;
+            font-size: 11pt;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+        p {
+            margin: 0 0 10px 0;
+            text-align: justify;
+        }
+        table.data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0 20px 0;
+            font-size: 9.5pt;
+        }
+        table.data-table th, table.data-table td {
+            border: 1px solid #d0d7de;
+            padding: 7px 10px;
+            text-align: left;
+        }
+        table.data-table th {
+            background-color: #003366;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        table.data-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        pre {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 12px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 9pt;
+            overflow-x: auto;
+            margin: 10px 0 15px 0;
+            line-height: 1.4;
+        }
+        .code-block {
+            border: 1px solid #333333;
+            border-radius: 4px;
+        }
+        .log-box {
+            background-color: #0d1117;
+            color: #58a6ff;
+            border: 1px solid #30363d;
+            border-radius: 4px;
+            padding: 12px;
+            font-family: 'Consolas', monospace;
+            font-size: 8.5pt;
+            white-space: pre-wrap;
+            margin: 10px 0 15px 0;
+            line-height: 1.35;
+        }
+        .badge {
+            display: inline-block;
+            padding: 2px 7px;
+            font-size: 8.5pt;
+            font-weight: 600;
+            border-radius: 3px;
+        }
+        .badge-success { background-color: #dafbe1; color: #1a7f37; }
+        .badge-info { background-color: #ddf4ff; color: #0969da; }
+        .feature-card {
+            background: #ffffff;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .page-break {
+            page-break-before: always;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Universidad Rafael Landívar</h1>
+        <h2>Campus San Alberto Hurtado, S.J. de Quetzaltenango</h2>
+        <p>Facultad de Ingeniería | Departamento de Ingeniería en Informática y Sistemas</p>
+        <p><strong>Curso:</strong> Manejo e Implementación de Archivos | <strong>Ciclo:</strong> 2026</p>
+    </div>
+
+    <div class="meta-box">
+        <table>
+            <tr>
+                <td class="meta-label">Laboratorio:</td>
+                <td>Laboratorio No. 1 - Aplicación de Escritorio con Gestión de Configuración de Usuario</td>
+                <td class="meta-label">Fecha de Entrega:</td>
+                <td>Agosto - Octubre 2026</td>
+            </tr>
+            <tr>
+                <td class="meta-label">Estudiante:</td>
+                <td>Josué Soch (Shonsoch)</td>
+                <td class="meta-label">Tecnología:</td>
+                <td>Python 3.14 / Tkinter & ttk / JSON / Git</td>
+            </tr>
+        </table>
+    </div>
+
+    <h2 class="section-title">1. Selección y Justificación Técnica del Formato de Persistencia</h2>
+    <p>
+        Para la solución solicitada se adoptó el estándar <strong>JSON (JavaScript Object Notation)</strong>. Para fundamentar la elección con criterios técnicos de peso, se realizó una contrastación rigurosa frente a formatos comunes de almacenamiento de configuración:
+    </p>
+
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Criterio Técnico</th>
+                <th>JSON (Elegido)</th>
+                <th>CSV (Descartado)</th>
+                <th>XML (Descartado)</th>
+                <th>Texto Plano / INI (Descartado)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Preservación de Tipos</strong></td>
+                <td><span class="badge badge-success">Excelente</span> (Tipado nativo para números, cadenas, booleanos).</td>
+                <td>Deficiente (Todo es texto plano; exige casteo manual).</td>
+                <td>Regular (Requiere conversión manual o esquemas XSD pesados).</td>
+                <td>Limitada (Solo pares clave-valor planos).</td>
+            </tr>
+            <tr>
+                <td><strong>Parseo y Rendimiento</strong></td>
+                <td><span class="badge badge-success">Óptimo</span> (Módulo estándar <code>json</code> implementado en C).</td>
+                <td>Rápido pero limitado a estructuras tabulares 2D sin jerarquías.</td>
+                <td>Pesado (Construcción de árboles DOM y alto consumo de RAM).</td>
+                <td>Rápido pero propenso a inconsistencias sintácticas.</td>
+            </tr>
+            <tr>
+                <td><strong>Legibilidad Humana</strong></td>
+                <td><span class="badge badge-success">Excelente</span> (Estructura clara de diccionarios, limpia y directa).</td>
+                <td>Media (Complejo de leer con rutas con diagonales o comas).</td>
+                <td>Baja (Sobrecarga de etiquetas repetidas <code>&lt;tag&gt;</code>).</td>
+                <td>Buena pero limitada en jerarquías.</td>
+            </tr>
+            <tr>
+                <td><strong>Robustez ante Corrupción</strong></td>
+                <td><span class="badge badge-success">Alta</span> (Falla estrictamente ante truncamiento con <code>JSONDecodeError</code>).</td>
+                <td>Muy baja (Puede leer filas cortadas silenciosamente).</td>
+                <td>Alta pero la recuperación ante errores de etiquetas es compleja.</td>
+                <td>Baja (Ignora líneas incompletas sin advertencia).</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>
+        <strong>Conclusión técnica:</strong> JSON permite representar la configuración de forma jerárquica con tipos de datos nativos (el tamaño de fuente se serializa como número entero <code>16</code> y no como cadena <code>"16"</code>). Además, su especificación estricta garantiza que ante un apagón o escritura incompleta, el parser detecta la falla inmediatamente, permitiendo que el sistema regenere los valores seguros predeterminados.
+    </p>
+
+    <h2 class="section-title">2. Implementación de Escritura Segura y Respaldo Atómico</h2>
+    <p>
+        Para garantizar que el archivo nunca quede corrupto o a medio escribir ante un cierre abrupto de la aplicación, se implementó el patrón de <strong>escritura atómica en tres fases</strong>:
+    </p>
+    <ol>
+        <li><strong>Copia de Respaldo Preventiva (<code>config.bak</code>):</strong> Si ya existe una configuración previa válida en disco, se duplica usando <code>shutil.copy2()</code>, asegurando que si el proceso de guardado colapsa, la versión anterior permanece intacta.</li>
+        <li><strong>Escritura en Archivo Temporal (<code>config.tmp</code>):</strong> Los nuevos parámetros se vuelcan primero a un archivo temporal intermedio con codificación forzada en UTF-8 (<code>ensure_ascii=False</code>).</li>
+        <li><strong>Reemplazo Atómico (<code>os.replace</code>):</strong> Una vez cerrado y consolidado el temporal en disco, se ejecuta <code>os.replace(TEMP_FILE, CONFIG_FILE)</code>. En los sistemas de archivos modernos (NTFS, ext4), esta llamada es atómica a nivel de inodo/sistema de archivos: el puntero se sustituye en un solo paso, eliminando cualquier ventana temporal donde el archivo pueda quedar dañado.</li>
+    </ol>
+
+    <h3 class="subsection-title">Fragmento del Código Implementado (<code>config_manager.py</code>)</h3>
+    <pre><code>def save_config(self, new_config):
+    self.config.update(new_config)
+
+    # 1. Respaldo (backup) de la configuración previa
+    if os.path.exists(CONFIG_FILE):
+        if os.path.exists(BACKUP_FILE):
+            try:
+                os.chmod(BACKUP_FILE, stat.S_IWRITE)
+            except Exception:
+                pass
+        try:
+            shutil.copy2(CONFIG_FILE, BACKUP_FILE)
+        except PermissionError:
+            print("ERROR: Sin permisos para crear el archivo de respaldo (.bak).")
+            return False
+
+    # 2. Escritura segura en archivo temporal intermedio
+    try:
+        with open(TEMP_FILE, 'w', encoding='utf-8') as f:
+            json.dump(self.config, f, indent=4, ensure_ascii=False)
+    except PermissionError:
+        print("ERROR: Sin permisos para escribir en el archivo temporal (.tmp).")
+        return False
+
+    # 3. Reemplazo atómico seguro del archivo final
+    try:
+        os.replace(TEMP_FILE, CONFIG_FILE)
+        print("INFO: Configuración guardada y actualizada correctamente.")
+        return True
+    except PermissionError:
+        print("ERROR: Sin permisos para reemplazar el archivo de configuración original.")
+        return False</code></pre>
+
+    <div class="page-break"></div>
+
+    <h2 class="section-title">3. Manejo de Errores y Degradación Controlada (Evidencia)</h2>
+    <p>
+        El sistema captura explícitamente y sin tracebacks los tres escenarios de contingencia exigidos por el laboratorio:
+    </p>
+    <ul>
+        <li><strong>Caso 1: Archivo ausente:</strong> Al no encontrar <code>config.json</code>, el gestor utiliza <code>DEFAULT_CONFIG</code> sin fallar, permitiendo que la interfaz inicie con parámetros de fábrica.</li>
+        <li><strong>Caso 2: Archivo corrupto o inválido:</strong> Si el JSON está truncado o mal formado, se atrapa <code>json.JSONDecodeError</code>, se notifica el error por consola y se degrada pacíficamente a la configuración base.</li>
+        <li><strong>Caso 3: Falta de permisos (Lectura/Escritura):</strong> Se captura <code>PermissionError</code> en cada operación de E/S. En lectura degrada a los valores predeterminados; en escritura retorna <code>False</code> y despliega un diálogo informativo en la interfaz gráfica.</li>
+    </ul>
+
+    <h3 class="subsection-title">Evidencia de Ejecución de Pruebas Automatizadas (<code>logs.txt</code>)</h3>
+    <div class="log-box">============================================================
+BATERÍA DE PRUEBAS DE PERSISTENCIA Y MANEJO DE ERRORES
+============================================================
+
+------------------------------------------------------------
+--- CASO 1: ARCHIVO AUSENTE
+------------------------------------------------------------
+INFO: Archivo de configuración no encontrado. Usando valores por defecto.
+Configuración activa actual (idioma): es/es-ES
+Comportamiento: Degradación suave a valores por defecto sin excepción.
+
+------------------------------------------------------------
+--- CASO 2: ARCHIVO CORRUPTO / FORMATO INVÁLIDO
+------------------------------------------------------------
+ERROR: Archivo de configuración corrupto o con formato inválido. Degradando a valores por defecto.
+Configuración activa actual (nombre_usuario): José Núñez
+Comportamiento: Detección de JSONDecodeError y fallback a valores por defecto.
+
+------------------------------------------------------------
+--- CASO 3: SIN PERMISOS DE ESCRITURA
+------------------------------------------------------------
+INFO: Configuración cargada exitosamente.
+Intentando guardar nueva configuración en archivo protegido...
+ERROR: Sin permisos para reemplazar el archivo de configuración original.
+Resultado del guardado controlado: Fallido (capturado controladamente)
+
+------------------------------------------------------------
+--- CASO 4: CODIFICACIÓN UTF-8 (Tildes y Carácter Ñ)
+------------------------------------------------------------
+INFO: Configuración cargada exitosamente.
+INFO: Configuración guardada y actualizada correctamente.
+INFO: Configuración cargada exitosamente.
+Valor guardado y recuperado: José Núñez de la Peña
+Validación de coincidencia exacta UTF-8: True
+
+============================================================
+TODAS LAS PRUEBAS FINALIZADAS EXITOSAMENTE SIN TRACEBACKS
+============================================================</div>
+
+    <h2 class="section-title">4. Manejo de Codificación de Caracteres UTF-8</h2>
+    <p>
+        Para garantizar la preservación fiel de tildes, diacríticos y la letra <strong>ñ</strong> en campos como <code>nombre_usuario</code> e <code>idioma</code>, tanto la apertura del archivo (<code>open(..., encoding='utf-8')</code>) como la serialización (<code>ensure_ascii=False</code>) fuerzan el estándar UTF-8 real en bytes.
+    </p>
+
+    <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+            <td style="width: 50%; vertical-align: top; padding-right: 8px;">
+                <h3 class="subsection-title">Archivo Generado: <code>config.json</code></h3>
+                <pre><code>{
+    "nombre_usuario": "José Núñez de la Peña",
+    "tema_interfaz": "oscuro",
+    "idioma": "es/es-ES",
+    "tamaño_fuente": 16,
+    "color_barra_menu": "#2b5b84",
+    "color_letra": "#ffffff",
+    "foto_perfil": "C:/Usuarios/Imágenes/foto_diseño.png"
+}</code></pre>
+            </td>
+            <td style="width: 50%; vertical-align: top; padding-left: 8px;">
+                <h3 class="subsection-title">Archivo de Respaldo: <code>config.bak</code></h3>
+                <pre><code>{
+    "nombre_usuario": "José Núñez de la Peña",
+    "tema_interfaz": "oscuro",
+    "idioma": "es/es-ES",
+    "tamaño_fuente": 14,
+    "color_barra_menu": "#2b5b84",
+    "color_letra": "#ffffff",
+    "foto_perfil": "C:/Usuarios/Imágenes/foto_diseño.png"
+}</code></pre>
+            </td>
+        </tr>
+    </table>
+
+    <h2 class="section-title">5. Características de la Interfaz Gráfica (Tkinter / ttk)</h2>
+    <div class="feature-card">
+        <p><strong>1. Menú Principal Jerárquico:</strong></p>
+        <ul>
+            <li><strong>Archivo:</strong> Submenús simulados (<em>Nuevo</em>, <em>Abrir</em>, <em>Salir</em>) con retroalimentación no intrusiva en pantalla.</li>
+            <li><strong>Edición:</strong> Opciones simuladas (<em>Deshacer</em>, <em>Copiar</em>).</li>
+            <li><strong>Ver:</strong> Control de ventana (<em>Minimizar</em>, <em>Maximizar</em>, <em>Restaurar</em>, <em>Pantalla Completa</em>).</li>
+            <li><strong>Configuración:</strong> Abre la ventana modal de ajustes.</li>
+        </ul>
+        <p><strong>2. Ventana de Configuración Avanzada:</strong></p>
+        <ul>
+            <li>Selectores gráficos de color (Barra de Menú y Tipografía) mediante <code>colorchooser</code>.</li>
+            <li>Selector de imagen de Avatar mediante <code>filedialog</code> y renderizado directo en la ventana central.</li>
+            <li>Internacionalización dinámica completa (Español / Inglés) que traduce toda la interfaz en tiempo real.</li>
+            <li>Botón <strong>Aplicar</strong> para guardar cambios sin cerrar la ventana de ajustes, y botón <strong>Restaurar Fábrica</strong>.</li>
+        </ul>
+    </div>
+
+</body>
+</html>
